@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.io.FileUtils;
 
 import utils.Utils;
+import render.Draw;
 
 // CALD weights and circuit distribution handling detection
 class Killua implements Runnable {
@@ -50,17 +51,23 @@ class Killua implements Runnable {
             Integer v = entry.getValue();
             File f = entry.getKey();
             String n = f.getName();
+            // TODO: setup drawing file
 
             try {
                 Scanner reader = new Scanner(f);
                 while (reader.hasNextLine()) {
                     String data = reader.nextLine();
-                    // TODO: parse instructions from file
-                    // System.out.println(data);
+                    String[] cld = data.split("\\s+");
+                    if (!data.isEmpty()) {
+                        String shape = u.getShape(cld[0].charAt(0));
+                        // TODO: Draw shape to graph
+                        // TODO: get direction
+                        // TODO: parse instructions from file
+                    }
                 }
                 reader.close();
             }   catch (FileNotFoundException e) {
-                System.out.println("An error occurred with " + n);
+                System.out.println("An error occurred building " + n);
                 e.printStackTrace();
             }
 
