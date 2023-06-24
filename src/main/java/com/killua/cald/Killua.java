@@ -1,10 +1,12 @@
 
 package com.killua.cald;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.io.File;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Iterator;
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.io.FileUtils;
 
@@ -47,13 +49,27 @@ class Killua implements Runnable {
             ConcurrentHashMap.Entry<File, Integer> entry = itr.next();
             Integer v = entry.getValue();
             File f = entry.getKey();
+            String n = f.getName();
 
-            System.out.println("K = " + f.getName() + ", V = " + v);
+            try {
+                Scanner reader = new Scanner(f);
+                while (reader.hasNextLine()) {
+                    String data = reader.nextLine();
+                    // TODO: parse instructions from file
+                    // System.out.println(data);
+                }
+                reader.close();
+            }   catch (FileNotFoundException e) {
+                System.out.println("An error occurred with " + n);
+                e.printStackTrace();
+            }
+
             /*
             * TODO: store hash to determine file changes locally and match hash against
             * Build diagram in another thread based on CALD instructions
             */
             breakers += u.logicGates(v);
+            System.out.println("K = " + n + ", V = " + v);
         }
 
         System.out.println(breakers);
