@@ -19,6 +19,7 @@ class Killua implements Runnable {
     private static final File myDir = new File(miscLocation);
     private static final String[] ext = new String[] { "cald" };
     private static final ConcurrentHashMap<File, Integer> map = new ConcurrentHashMap<>();
+    private static File pdf = new File("./pdfs");
 
     public static void main(String[] args) {
         List<File> images = (List<File>) FileUtils.listFiles(myDir, ext, false);
@@ -42,6 +43,11 @@ class Killua implements Runnable {
         int size = map.size();
         System.out.println("Circuits: " + size);
         Utils u = new Utils();
+        File pdfs = new File("./pdfs");
+
+        if (!pdfs.exists()){
+            pdfs.mkdirs();
+        }
 
         Iterator<ConcurrentHashMap.Entry<File, Integer>> itr = map.entrySet().iterator();
         String breakers = "";
@@ -51,10 +57,15 @@ class Killua implements Runnable {
             Integer v = entry.getValue();
             File f = entry.getKey();
             String n = f.getName();
-            // TODO: setup drawing file
+            Draw d = new Draw(n);
+
+            if (d.saved != null) {
+                continue;
+            }
 
             try {
                 Scanner reader = new Scanner(f);
+
                 while (reader.hasNextLine()) {
                     String data = reader.nextLine();
                     String[] cld = data.split("\\s+");

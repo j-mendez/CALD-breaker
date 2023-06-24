@@ -1,3 +1,5 @@
 *.class
 target
 dependency-reduced-pom.xml
+pdfs
+.DS_Store
