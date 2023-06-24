@@ -9,4 +9,13 @@ public class Utils {
     public int rotateGate(int g) {
         return g << 1;
     } 
+
+    // determine gates
+    public static String logicGates(int args) {
+        if (args % 2 == 0) {
+            return "⎏-";
+        } else {
+            return "⎐-";
+        }
+    }
 }
