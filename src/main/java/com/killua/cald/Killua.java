@@ -92,4 +92,9 @@ class Killua implements Runnable {
 
         System.out.println(breakers);
     }
+
+    // check all outputs to determine if new graph is needed
+    static public Boolean checkStatus(int arg) {
+        return true;
+    }
 }
